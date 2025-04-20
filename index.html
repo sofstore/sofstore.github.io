@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sof-Store - Top Up Game</title>
+<style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121212;
+      color: white;
+    }
+    header {
+      background-color: #ff6f00;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .container {
+      padding: 2rem;
+    }
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+    .game-card {
+      background: #1e1e1e;
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .form-section, .check-section {
+      background: #1e1e1e;
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: 2rem auto;
+    }
+    input, select, button {
+      display: block;
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+      border: none;
+    }
+    button {
+      background-color: #ff6f00;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  
+
+    .game-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(255, 111, 0, 0.5);
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      background-color: #ff8f00;
+      box-shadow: 0 0 10px rgba(255, 111, 0, 0.5);
+    }
+    input:focus, select:focus {
+      outline: none;
+      border: 2px solid #ff6f00;
+      background-color: #2a2a2a;
+    }
+    input, select {
+      background-color: #1e1e1e;
+      color: white;
+      border: 1px solid #333;
+    }
+    button {
+      transition: all 0.3s ease;
+    }
+
+    #check {
+      background: #1a1a1a;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 0 10px rgba(255, 111, 0, 0.2);
+    }
+    #check h2 {
+      color: #ff6f00;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    #cekGame, #cekNominal {
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background-color: #1e1e1e;
+      color: white;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    #cekGame:focus, #cekNominal:focus {
+      border: 1px solid #ff6f00;
+      outline: none;
+    }
+    #cekHarga {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #ffffff;
+      background-color: #2a2a2a;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 0 5px rgba(255, 111, 0, 0.4);
+    }
+    </style>
+</head>
+<body>
+<header style="text-align: center; padding-top: 1rem;">
+<img alt="Sof-Store" src="logo.png" style="max-height: 60px; margin-bottom: 0.5rem;"/>
+<h1>Sof-Store</h1>
+<nav>
+<a href="#games">Game</a>
+<a href="#topup">Top Up</a>
+<a href="#check">Cek Harga</a>
+</nav>
+</header>
+<div class="container" id="games">
+<h2>Pilih Game</h2>
+<div class="game-grid">
+<div class="game-card">Mobile Legends</div>
+<div class="game-card">Free Fire</div>
+<div class="game-card">PUBG Mobile</div>
+<div class="game-card">Genshin Impact</div>
+<div class="game-card">Call of Duty</div>
+<div class="game-card">Valorant</div>
+</div>
+</div>
+<div class="form-section" id="topup">
+<h2>Formulir Top-Up</h2>
+<form id="topupForm">
+<input id="id_pemain" placeholder="ID Pemain" required="" type="text"/>
+<input id="server" placeholder="Server" required="" type="text"/>
+<select id="game" required="">
+<option value="">Pilih Game</option>
+<option>Mobile Legends</option>
+<option>Free Fire</option>
+<option>PUBG Mobile</option>
+</select>
+<select id="nominal" required=""><option value="">Pilih Nominal</option></select>
+<select id="pembayaran" required="">
+<option value="">Pilih Metode Pembayaran</option>
+<option>DANA</option>
+<option>GOPAY</option>
+<option>QRIS</option>
+<option>VA Bank Transfer</option>
+</select>
+<button type="submit">Kirim</button>
+</form>
+<p id="responseMsg"></p>
+</div>
+<div class="check-section" id="check">
+<h2>Cek Harga</h2>
+<form id="checkForm"><select id="cekGame" style="margin-bottom: 0.5rem; padding: 0.75rem; border-radius: 5px; width: 100%;"><option value="">Pilih Game</option><option value="Mobile Legends">Mobile Legends</option><option value="Free Fire">Free Fire</option><option value="PUBG Mobile">PUBG Mobile</option></select><select id="cekNominal" style="margin-bottom: 0.5rem; padding: 0.75rem; border-radius: 5px; width: 100%;"><option value="">Pilih Nominal</option></select></form>
+<p id="statusMsg"></p>
+<p id="cekHarga"></p></div>
+<script>
+const nominalOptions = {
+  "Mobile Legends": ["86 Diamonds", "172 Diamonds", "257 Diamonds"],
+  "Free Fire": ["70 Diamonds", "140 Diamonds", "355 Diamonds"],
+  "PUBG Mobile": ["60 UC", "325 UC", "660 UC"]
+};
+
+document.getElementById("game").addEventListener("change", function () {
+  const game = this.value;
+  const nominalSelect = document.getElementById("nominal");
+  nominalSelect.innerHTML = '<option value="">Pilih Nominal</option>';
+  if (nominalOptions[game]) {
+    nominalOptions[game].forEach(nominal => {
+      const opt = document.createElement("option");
+      opt.value = nominal;
+      opt.textContent = nominal;
+      nominalSelect.appendChild(opt);
+    });
+  }
+});
+</script><script>
+document.getElementById('topupForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const id = document.getElementById('id_pemain').value;
+  const server = document.getElementById('server').value;
+  const game = document.getElementById('game').value;
+  const nominal = document.getElementById('nominal').value;
+  const pembayaran = document.getElementById('pembayaran').value;
+
+  const pesan = `Halo Admin, saya ingin melakukan top up:%0AID Pemain: ${id}%0AServer: ${server}%0AGame: ${game}%0ANominal: ${nominal}%0APembayaran: ${pembayaran}%0A%0A*Terima kasih telah melakukan pemesanan di Sof-Store!*%0APesanan kamu sedang diproses dan akan segera kami kirim.%0AHarap tunggu maksimal 5–10 menit. Jika ada kendala, silakan hubungi admin.`;
+  const waNumber = '6285710367647';
+  window.location.href = `https://wa.me/${waNumber}?text=${pesan}`;
+});
+</script>
+<footer style="background-color: #1a1a1a; color: #ccc; text-align: center; padding: 2rem 1rem; margin-top: 3rem;">
+<p><strong>Sof-Store</strong> adalah layanan top-up game terpercaya dan cepat.</p>
+<p>Temukan kami di:</p>
+<div style="margin: 1rem 0;">
+<a href="#" style="color: #ccc; margin: 0 0.5rem;">Instagram</a> |
+    <a href="#" style="color: #ccc; margin: 0 0.5rem;">TikTok</a> |
+    <a href="#" style="color: #ccc; margin: 0 0.5rem;">YouTube</a>
+</div>
+<p style="font-size: 0.875rem;">© 2025 Sof-Store. All rights reserved.</p>
+</footer>
+<script>
+const hargaData = {
+  "Mobile Legends": {
+    "86 Diamonds": "Rp20.000",
+    "172 Diamonds": "Rp38.000",
+    "257 Diamonds": "Rp56.000"
+  },
+  "Free Fire": {
+    "70 Diamonds": "Rp19.000",
+    "140 Diamonds": "Rp36.000",
+    "355 Diamonds": "Rp85.000"
+  },
+  "PUBG Mobile": {
+    "60 UC": "Rp15.000",
+    "325 UC": "Rp65.000",
+    "660 UC": "Rp120.000"
+  }
+};
+
+document.getElementById("cekGame").addEventListener("change", function () {
+  const game = this.value;
+  const nominalSelect = document.getElementById("cekNominal");
+  nominalSelect.innerHTML = '<option value="">Pilih Nominal</option>';
+  if (hargaData[game]) {
+    Object.keys(hargaData[game]).forEach(nom => {
+      const opt = document.createElement("option");
+      opt.value = nom;
+      opt.textContent = nom;
+      nominalSelect.appendChild(opt);
+    });
+  }
+});
+
+document.getElementById("cekNominal").addEventListener("change", function () {
+  const game = document.getElementById("cekGame").value;
+  const nominal = this.value;
+  const harga = hargaData[game]?.[nominal] || '-';
+  document.getElementById("cekHarga").textContent = harga ? `Harga: ${harga}` : '';
+});
+</script></body>
+</html>
