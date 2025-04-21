@@ -134,13 +134,11 @@
 </nav>
 </header>
 <div class="container" id="games">
-<h2>Pilih Game</h2>
+<h2>Game Populer</h2>
 <div class="game-grid">
 <div class="game-card">Mobile Legends</div>
 <div class="game-card">Free Fire</div>
 <div class="game-card">PUBG Mobile</div>
-<div class="game-card">Genshin Impact</div>
-<div class="game-card">Call of Duty</div>
 <div class="game-card">Valorant</div>
 </div>
 </div>
@@ -174,9 +172,9 @@
 <p id="cekHarga"></p></div>
 <script>
 const nominalOptions = {
-  "Mobile Legends": ["86 Diamonds", "172 Diamonds", "257 Diamonds"],
-  "Free Fire": ["70 Diamonds", "140 Diamonds", "355 Diamonds"],
-  "PUBG Mobile": ["60 UC", "325 UC", "660 UC"]
+  "Mobile Legends": ["5 Diamonds", "12 Diamonds", "19 Diamonds", "28 Diamonds", "44 Diamonds", "50 Diamonds", "59 Diamonds", "85 Diamonds", "113 Diamonds", "144 Diamonds", "170 Diamonds", "229 Diamonds", "240 Diamonds", "257 Diamonds", "278 Diamonds", "284 Diamonds", "296 Diamonds", "301 Diamonds", "345 Diamonds", "355 Diamonds", "374 Diamonds", "381 Diamonds", "408 Diamonds"],
+  "Free Fire": ["10 Diamonds", "12 Diamonds", "15 Diamonds", "20 Diamonds", "25 Diamonds", "30 Diamonds", "50 Diamonds", "55 Diamonds", "60 Diamonds", "70 Diamonds", "75 Diamonds", "80 Diamonds", "90 Diamonds", "100 Diamonds", "120 Diamonds", "130 Diamonds", "140 Diamonds", "145 Diamonds", "150 Diamonds", "160 Diamonds", "170 Diamonds", "180 Diamonds", "190 Diamonds", "200 Diamonds", "210 Diamonds","250 Diamonds", "300 Diamonds","355 Diamonds","405 Diamonds"],
+  "PUBG Mobile": ["60 UC", "120 UC", "180 UC", "325 UC", "385 UC", "445 UC"]
 };
 
 document.getElementById("game").addEventListener("change", function () {
@@ -201,7 +199,78 @@ document.getElementById('topupForm').addEventListener('submit', function (e) {
   const nominal = document.getElementById('nominal').value;
   const pembayaran = document.getElementById('pembayaran').value;
 
-  const pesan = `Halo Admin, saya ingin melakukan top up:%0AID Pemain: ${id}%0AServer: ${server}%0AGame: ${game}%0ANominal: ${nominal}%0APembayaran: ${pembayaran}%0A%0A*Terima kasih telah melakukan pemesanan di Sof-Store!*%0APesanan kamu sedang diproses dan akan segera kami kirim.%0AHarap tunggu maksimal 5–10 menit. Jika ada kendala, silakan hubungi admin.`;
+  
+const hargaData = {
+  "Mobile Legends": {
+    "5 Diamonds": "Rp1.530",
+    "12 Diamonds": "Rp3.571",
+    "19 Diamonds": "Rp5.613",
+    "28 Diamonds": "Rp8.165",
+    "44 Diamonds": "Rp12.250",
+    "50 Diamonds": "Rp15.305",
+    "59 Diamonds": "Rp16.319",
+    "85 Diamonds": "Rp23.459",
+    "113 Diamonds": "Rp31.700",
+    "144 Diamonds": "Rp39.745",
+    "170 Diamonds": "Rp46.875",
+    "229 Diamonds": "Rp63.200",
+    "240 Diamonds": "Rp66.100",
+    "257 Diamonds": "Rp71.200",
+    "278 Diamonds": "Rp77.310",
+    "284 Diamonds": "Rp78.350",
+    "296 Diamonds": "Rp81.350",
+    "301 Diamonds": "Rp82.880",
+    "345 Diamonds": "Rp95.110",
+    "355 Diamonds": "Rp97.650",
+    "374 Diamonds": "Rp103.300",
+    "381 Diamonds": "Rp104.800",
+    "408 Diamonds": "Rp111.900"
+  },
+  "Free Fire": {
+    "10 Diamonds": "Rp1.850",
+    "12 Diamonds": "Rp1.990",
+    "15 Diamonds": "Rp2.770",
+    "20 Diamonds": "Rp3.850",
+    "25 Diamonds": "Rp4.555",
+    "30 Diamonds": "Rp5.770",
+    "50 Diamonds": "Rp7.700",
+    "55 Diamonds": "Rp8.250",
+    "60 Diamonds": "Rp9.200",
+    "70 Diamonds": "Rp9.550",
+    "75 Diamonds": "Rp10.500",
+    "80 Diamonds": "Rp11.450",
+    "90 Diamonds": "Rp13.310",
+    "100 Diamonds": "Rp14.500",
+    "120 Diamonds": "Rp17.200",
+    "130 Diamonds": "Rp18.800",
+    "140 Diamonds": "Rp19.100",
+    "145 Diamonds": "Rp20.200",
+    "150 Diamonds": "Rp21.000",
+    "160 Diamonds": "Rp22.900",
+    "170 Diamonds": "Rp24.800",
+    "180 Diamonds": "Rp27.500",
+    "190 Diamonds": "Rp27.900",
+    "200 Diamonds": "Rp28.400",
+    "210 Diamonds": "Rp29.600",
+    "250 Diamonds": "Rp37.500",
+    "300 Diamonds": "Rp42.500",
+    "355 Diamonds": "Rp47.800",
+    "405 Diamonds": "Rp55.000"
+  },
+  "PUBG Mobile": {
+    "60 UC": "Rp15.700",
+    "120 UC": "Rp31.250",
+    "180 UC": "Rp46.900",
+    "325 UC": "Rp77.955",
+    "385 UC": "Rp93.600",
+    "445 UC": "Rp109.300"
+  }
+};
+
+
+  const harga = hargaData[game]?.[nominal] || '-';
+
+  const pesan = `Halo Admin, saya ingin melakukan top up:%0AID Pemain: ${id}%0AServer: ${server}%0AGame: ${game}%0ANominal: ${nominal}%0APembayaran: ${pembayaran}%0AHarga: ${harga}%0A%0A*Terima kasih telah melakukan pemesanan di Sof-Store!*`;
   const waNumber = '6285710367647';
   window.location.href = `https://wa.me/${waNumber}?text=${pesan}`;
 });
@@ -210,30 +279,81 @@ document.getElementById('topupForm').addEventListener('submit', function (e) {
 <p><strong>Sof-Store</strong> adalah layanan top-up game terpercaya dan cepat.</p>
 <p>Temukan kami di:</p>
 <div style="margin: 1rem 0;">
-<a href="#" style="color: #ccc; margin: 0 0.5rem;">Instagram</a> |
-    <a href="#" style="color: #ccc; margin: 0 0.5rem;">TikTok</a> |
-    <a href="#" style="color: #ccc; margin: 0 0.5rem;">YouTube</a>
+<a href="https://www.facebook.com/share/1FEzQ72qh9/" style="color: #ccc; margin: 0 0.5rem;">Facebook</a> |
+    <a href="https://www.tiktok.com/@shaofian" style="color: #ccc; margin: 0 0.5rem;">TikTok</a> |
+    <a href="https://www.youtube.com/@shaufian" style="color: #ccc; margin: 0 0.5rem;">YouTube</a>
 </div>
 <p style="font-size: 0.875rem;">© 2025 Sof-Store. All rights reserved.</p>
 </footer>
 <script>
+
 const hargaData = {
   "Mobile Legends": {
-    "86 Diamonds": "Rp20.000",
-    "172 Diamonds": "Rp38.000",
-    "257 Diamonds": "Rp56.000"
+    "5 Diamonds": "Rp1.530",
+    "12 Diamonds": "Rp3.571",
+    "19 Diamonds": "Rp5.613",
+    "28 Diamonds": "Rp8.165",
+    "44 Diamonds": "Rp12.250",
+    "50 Diamonds": "Rp15.305",
+    "59 Diamonds": "Rp16.319",
+    "85 Diamonds": "Rp23.459",
+    "113 Diamonds": "Rp31.700",
+    "144 Diamonds": "Rp39.745",
+    "170 Diamonds": "Rp46.875",
+    "229 Diamonds": "Rp63.200",
+    "240 Diamonds": "Rp66.100",
+    "257 Diamonds": "Rp71.200",
+    "278 Diamonds": "Rp77.310",
+    "284 Diamonds": "Rp78.350",
+    "296 Diamonds": "Rp81.350",
+    "301 Diamonds": "Rp82.880",
+    "345 Diamonds": "Rp95.110",
+    "355 Diamonds": "Rp97.650",
+    "374 Diamonds": "Rp103.300",
+    "381 Diamonds": "Rp104.800",
+    "408 Diamonds": "Rp111.900"
   },
   "Free Fire": {
-    "70 Diamonds": "Rp19.000",
-    "140 Diamonds": "Rp36.000",
-    "355 Diamonds": "Rp85.000"
+    "10 Diamonds": "Rp1.850",
+    "12 Diamonds": "Rp1.990",
+    "15 Diamonds": "Rp2.770",
+    "20 Diamonds": "Rp3.850",
+    "25 Diamonds": "Rp4.555",
+    "30 Diamonds": "Rp5.770",
+    "50 Diamonds": "Rp7.700",
+    "55 Diamonds": "Rp8.250",
+    "60 Diamonds": "Rp9.200",
+    "70 Diamonds": "Rp9.550",
+    "75 Diamonds": "Rp10.500",
+    "80 Diamonds": "Rp11.450",
+    "90 Diamonds": "Rp13.310",
+    "100 Diamonds": "Rp14.500",
+    "120 Diamonds": "Rp17.200",
+    "130 Diamonds": "Rp18.800",
+    "140 Diamonds": "Rp19.100",
+    "145 Diamonds": "Rp20.200",
+    "150 Diamonds": "Rp21.000",
+    "160 Diamonds": "Rp22.900",
+    "170 Diamonds": "Rp24.800",
+    "180 Diamonds": "Rp27.500",
+    "190 Diamonds": "Rp27.900",
+    "200 Diamonds": "Rp28.400",
+    "210 Diamonds": "Rp29.600",
+    "250 Diamonds": "Rp37.500",
+    "300 Diamonds": "Rp42.500",
+    "355 Diamonds": "Rp47.800",
+    "405 Diamonds": "Rp55.000"
   },
   "PUBG Mobile": {
-    "60 UC": "Rp15.000",
-    "325 UC": "Rp65.000",
-    "660 UC": "Rp120.000"
+    "60 UC": "Rp15.700",
+    "120 UC": "Rp31.250",
+    "180 UC": "Rp46.900",
+    "325 UC": "Rp77.955",
+    "385 UC": "Rp93.600",
+    "445 UC": "Rp109.300"
   }
 };
+
 
 document.getElementById("cekGame").addEventListener("change", function () {
   const game = this.value;
