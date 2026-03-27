@@ -7,120 +7,186 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Sof-Store - Top Up Game</title>
-<style>
+    <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #121212;
-      color: white;
-    }
-    header {
-      background-color: #ff6f00;
-      padding: 1rem;
-      text-align: center;
-    }
-    nav a {
-      color: white;
-      margin: 0 1rem;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .container {
-      padding: 2rem;
-    }
-    .game-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1rem;
-    }
-    .game-card {
-      background: #1e1e1e;
-      padding: 1rem;
-      border-radius: 10px;
-      text-align: center;
-      cursor: pointer;
-    }
-    .form-section, .check-section {
-      background: #1e1e1e;
-      padding: 2rem;
-      border-radius: 10px;
-      max-width: 500px;
-      margin: 2rem auto;
-    }
-    input, select, button {
-      display: block;
-      width: 100%;
-      padding: 0.75rem;
-      margin: 0.5rem 0;
-      border-radius: 5px;
-      border: none;
-    }
-    button {
-      background-color: #ff6f00;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-  
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+  color: white;
+}
 
-    .game-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 10px rgba(255, 111, 0, 0.5);
-      transition: all 0.3s ease;
-    }
-    button:hover {
-      background-color: #ff8f00;
-      box-shadow: 0 0 10px rgba(255, 111, 0, 0.5);
-    }
-    input:focus, select:focus {
-      outline: none;
-      border: 2px solid #ff6f00;
-      background-color: #2a2a2a;
-    }
-    input, select {
-      background-color: #1e1e1e;
-      color: white;
-      border: 1px solid #333;
-    }
-    button {
-      transition: all 0.3s ease;
-    }
+/* HEADER */
+header {
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(10px);
+  background: rgba(18,18,18,0.8);
+  border-bottom: 1px solid #333;
+  z-index: 1000;
+  padding: 1rem;
+}
 
-    #check {
-      background: #1a1a1a;
-      border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 0 0 10px rgba(255, 111, 0, 0.2);
-    }
-    #check h2 {
-      color: #ff6f00;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-    #cekGame, #cekNominal {
-      padding: 0.75rem;
-      border-radius: 8px;
-      border: 1px solid #333;
-      background-color: #1e1e1e;
-      color: white;
-      font-size: 1rem;
-      margin-bottom: 1rem;
-    }
-    #cekGame:focus, #cekNominal:focus {
-      border: 1px solid #ff6f00;
-      outline: none;
-    }
-    #cekHarga {
-      font-size: 1.25rem;
-      font-weight: bold;
-      color: #ffffff;
-      background-color: #2a2a2a;
-      padding: 1rem;
-      border-radius: 8px;
-      text-align: center;
-      box-shadow: 0 0 5px rgba(255, 111, 0, 0.4);
-    }
+nav a {
+  color: #ccc;
+  margin: 0 1rem;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: #ff6f00;
+}
+
+/* CONTAINER */
+.container {
+  padding: 2rem;
+}
+
+/* GAME GRID */
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1.5rem;
+}
+.game-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.game-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  transition: 0.4s;
+}
+
+.game-card:hover img {
+  transform: scale(1.1);
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  text-align: center;
+  font-weight: bold;
+}
+
+/* badge */
+.game-card::after {
+  content: "POPULER";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ff6f00;
+  padding: 3px 8px;
+  font-size: 10px;
+  border-radius: 5px;
+}
+
+.game-card {
+  background: rgba(255,255,255,0.05);
+  padding: 1.5rem;
+  border-radius: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 1px solid rgba(255,255,255,0.1);
+  position: relative;
+overflow: hidden;
+}
+.game-card::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,111,0,0.2), transparent);
+  top: -50%;
+  left: -50%;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.game-card:hover::before {
+  opacity: 1;
+}
+.game-card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 0 20px rgba(255,111,0,0.6);
+  border: 1px solid #ff6f00;
+}
+
+/* FORM */
+.form-section, .check-section {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 15px;
+  max-width: 500px;
+  margin: 2rem auto;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* INPUT */
+input, select {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background-color: #1e1e1e;
+  color: white;
+  transition: 0.3s;
+}
+
+input:focus, select:focus {
+  border: 1px solid #ff6f00;
+  background-color: #2a2a2a;
+  outline: none;
+}
+
+/* BUTTON */
+button {
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(135deg, #ff6f00, #ff8f00);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255,111,0,0.7);
+}
+
+/* CEK HARGA */
+#cekHarga {
+  margin-top: 1rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+  background: rgba(255,255,255,0.05);
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid #ff6f00;
+}
+
+/* FOOTER */
+footer {
+  background: #111;
+  color: #aaa;
+  text-align: center;
+  padding: 2rem 1rem;
+  margin-top: 3rem;
+  border-top: 1px solid #333;
+}
     </style>
 </head>
 <body>
@@ -136,10 +202,25 @@
 <div class="container" id="games">
 <h2>Game Populer</h2>
 <div class="game-grid">
-<div class="game-card">Mobile Legends</div>
-<div class="game-card">Free Fire</div>
-<div class="game-card">PUBG Mobile</div>
-<div class="game-card">Valorant</div>
+  <div class="game-card" onclick="pilihGame('Mobile Legends')">
+    <img src="https://thumb.viva.id/vivanewsgames/375x211/2025/09/15/68c761679bd5e-sejarah-perkembangan-mobile-legends_subdomain-ai.jpg">
+    <div class="overlay">Mobile Legends</div>
+  </div>
+
+  <div class="game-card" onclick="pilihGame('Free Fire')">
+    <img src="https://dl.dir.freefiremobile.com/common/web_event/hash/54f31449f5f91cf0cc223cc635cd5952jpg">
+    <div class="overlay">Free Fire</div>
+  </div>
+
+  <div class="game-card" onclick="pilihGame('PUBG Mobile')">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT208jr3HvhTQEEM7UBZe4MOtbreZpSLviOC3OXUtc1hgo30RFNSmvSkMyI&s=10">
+    <div class="overlay">PUBG Mobile</div>
+  </div>
+
+  <div class="game-card" onclick="pilihGame('Valorant')">
+    <img src="https://www.riotgames.com/darkroom/1440/8d5c497da1c2eeec8cffa99b01abc64b:5329ca773963a5b739e98e715957ab39/ps-f2p-val-console-launch-16x9.jpg">
+    <div class="overlay">Valorant</div>
+  </div>
 </div>
 </div>
 <div class="form-section" id="topup">
@@ -171,6 +252,18 @@
 <p id="statusMsg"></p>
 <p id="cekHarga"></p></div>
 <script>
+  function pilihGame(namaGame) {
+  document.getElementById("game").value = namaGame;
+
+  // trigger change biar nominal muncul
+  const event = new Event('change');
+  document.getElementById("game").dispatchEvent(event);
+
+  // scroll ke form
+  document.getElementById("topup").scrollIntoView({
+    behavior: "smooth"
+  });
+}
 const nominalOptions = {
   "Mobile Legends": ["5 Diamonds", "12 Diamonds", "19 Diamonds", "28 Diamonds", "44 Diamonds", "50 Diamonds", "59 Diamonds", "85 Diamonds", "113 Diamonds", "144 Diamonds", "170 Diamonds", "229 Diamonds", "240 Diamonds", "257 Diamonds", "278 Diamonds", "284 Diamonds", "296 Diamonds", "301 Diamonds", "345 Diamonds", "355 Diamonds", "374 Diamonds", "381 Diamonds", "408 Diamonds"],
   "Free Fire": ["10 Diamonds", "12 Diamonds", "15 Diamonds", "20 Diamonds", "25 Diamonds", "30 Diamonds", "50 Diamonds", "55 Diamonds", "60 Diamonds", "70 Diamonds", "75 Diamonds", "80 Diamonds", "90 Diamonds", "100 Diamonds", "120 Diamonds", "130 Diamonds", "140 Diamonds", "145 Diamonds", "150 Diamonds", "160 Diamonds", "170 Diamonds", "180 Diamonds", "190 Diamonds", "200 Diamonds", "210 Diamonds","250 Diamonds", "300 Diamonds","355 Diamonds","405 Diamonds"],
